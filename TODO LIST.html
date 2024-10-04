@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO LIST App</title>
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+    <div class="container">
+        <h1>TODO List</h1>
+        <form id="todo-form">
+            <input type="text" id="task-input" placeholder="Enter your task" required>
+            <input type="date" id="date-input" required>
+            <button type="submit">Add Task</button>
+        </form>
+        <ul id="todo-list"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html
+body{
+    font-family: Georgia, sans-serif;
+    text-align: center;
+    background-color: antiquewhite;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: #483d8b;
+    padding: 80px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+ }
+form {
+    margin-bottom: 15px;
+ }
+
+ input, button {
+    padding: 20px;
+    margin: 10px 0;
+    width: 100%;
+
+ }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+ }
+
+li {
+    background-color: lightblue;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+
+ }
+
+ button {
+    background-color:#0000cd;
+    color: lightcyan;
+    border: none;
+    cursor: pointer;
+ }
+
+button:hover {
+    background-color:#1a0000;
+ }
+const todoForm = document.getElementById('todo-form');
+const todoList = document.getElementById('todo-list');
+const taskInput = document.getElementById('task-input'); 
+const dateInput = document.getElementById('date-input');
+
+// Load tasks from localStorage
+document.addEventListener('DOMContentLoaded', loadTasks);
+
+// Add task
+todoForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const task = taskInput.value;   // Corrected assignment
+    const date = dateInput.value;   // Corrected assignment
+
+    if (task && date) {
+        addTaskToList(task, date);
+        saveTask(task, date);
+        taskInput.value = '';       // Reset the input field
+        dateInput.value = '';       // Reset the input field
+    }
+});
+
+// Function to add task to the list (HTML)
+function addTaskToList(task, date) {
+    const li = document.createElement('li');  // Corrected assignment
+    li.innerHTML = `
+        ${date} - ${task} 
+        <button class="edit">Edit</button>
+        <button class="delete">Delete</button>
